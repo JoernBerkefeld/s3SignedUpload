@@ -3,15 +3,12 @@ $.fn.uploadHandler = function(s3presignedApiUri) {
 		fileupload0 = fileupload[0];
 
 	function readfiles(files) {
-		var uploadFormData,
-			fileCounter=files.length;
+		var fileCounter=files.length;
 
 		for (var file, i = 0; i < fileCounter; i++) {
 			file = files[i];
-			// console.log("file:",files[i].name);
-			uploadFormData = new FormData();
-			// if(files[i].name && !files[i].name.match(/.(gif|jpe?g|png)$/i)) {
-			// 	alert("text");
+			// if(files[i].name && !files[i].name.match(/.(gif|jpe?g|png|svg)$/i)) {
+			// 	alert("images only");
 			// 	return;
 			// }
 			$.ajax({
@@ -23,13 +20,13 @@ $.fn.uploadHandler = function(s3presignedApiUri) {
 			})
 			.done(function(data) {
 				if(data.error) {
-					console.error(data.error);
+					console.error(data.error); // REMOVE ME FOR PRODUCTION USE
 				} else {
 					uploadFile(file, data.url);
 				}
 			})
 			.fail(function(e) {
-				console.error("S3 Upload not supported",e);
+				console.error("S3 Upload not supported",e); // REMOVE ME FOR PRODUCTION USE
 			});
 		}
 
@@ -48,14 +45,14 @@ $.fn.uploadHandler = function(s3presignedApiUri) {
 		})
 		.done(function() {
 			var newFileUrl = s3presignedUrl.split('?')[0].substr(6);
-			console.info("s3-upload done: ", newFileUrl);
+			console.info("s3-upload done: ", newFileUrl); // REMOVE ME FOR PRODUCTION USE
 
 			////////////////////////////////////////////
 			// do something here with the file url //
 			////////////////////////////////////////////
 		})
 		.fail(function(e) {
-			console.error("s3-upload failed",e);
+			console.error("s3-upload failed",e); // REMOVE ME FOR PRODUCTION USE
 		});
 	}
 
