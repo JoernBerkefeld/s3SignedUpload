@@ -41,7 +41,6 @@ class S3Upload {
 			return $this->error("video id missing");
 		}
 		$this->folder = $folder;
-		$this->cloudfront = $CLOUDFRONT;
 		
 		$this->client = Aws::factory( $configFile )->get('S3');
 
